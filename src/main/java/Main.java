@@ -1,5 +1,6 @@
 import jdk.nashorn.internal.ir.CaseNode;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -8,8 +9,11 @@ public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         int option = 0;
-        while(option != 7){
-            showOptions();
+        boolean showOptions = true;
+        while(option != 9){
+            if(showOptions) {
+                showOptions();
+            }
             String input = scanner.nextLine();
             if(input.equals("")){
                 input = "0";
@@ -42,8 +46,24 @@ public class Main {
                 case 6://show all members
                     showAllMembers();
                     break;
-                case 7://exit
+                case 7://save data
+                    saveData();
+                    break;
+                case 8://load data
+                    restoreData();
+                    break;
+                case 9://exit
                     System.out.println("Exiting");
+                    break;
+                case 10://show Menu on/off
+                    if(showOptions){
+                        showOptions = false;
+                        System.out.println("Showing Options OFF");
+                    }else{
+                        showOptions = true;
+                        System.out.println("Showing Options ON");
+                    }
+
                     break;
                 default:
                     System.out.println("Incorrect option");
@@ -58,7 +78,10 @@ public class Main {
         System.out.println("4 - Return Book");
         System.out.println("5 - Show All Books");
         System.out.println("6 - Show All Member");
-        System.out.println("7 - Exit");
+        System.out.println("7 - Save data to file");
+        System.out.println("8 - Restore data from file");
+        System.out.println("9 - Exit");
+        System.out.println("10 - Show options ON/OFF");
     }
 
     public static void addBook(){
@@ -118,5 +141,15 @@ public class Main {
 
     public static void showAllBooks(){
         library.showAllBooks();
+    }
+
+    public static void saveData(){
+        System.out.println("Saving Data to file");
+        LibraryFileManager.saveData(library.books, library.members);
+    }
+    public static void restoreData(){
+        System.out.println("Loading Data from file");
+        library.books = LibraryFileManager.loadBooks();
+        library.members = LibraryFileManager.loadMembers();
     }
 }

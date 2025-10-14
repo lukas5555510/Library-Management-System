@@ -1,6 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Member {
+public class Member implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String name;
     ArrayList<Book> borrowedBooks;
