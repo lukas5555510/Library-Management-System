@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 
 public class Book implements Serializable {
@@ -7,7 +9,7 @@ public class Book implements Serializable {
     private String title;
     private String author;
     private boolean isAvailable;
-    Book(int id, String title, String author, boolean isAvailable){
+    public Book(int id, String title, String author, boolean isAvailable){
         this.id = id;
         this.title = title;
         this.author = author;
@@ -15,7 +17,7 @@ public class Book implements Serializable {
     }
     @Override
     public String toString() {
-        return id+" "+title+" "+author+" "+isAvailable;
+        return "id: "+id+" title: "+title+" author: "+author+" available: "+isAvailable;
     }
 
     public int getId() {

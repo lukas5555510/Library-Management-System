@@ -1,10 +1,14 @@
-import jdk.nashorn.internal.ir.CaseNode;
+package main;
 
-import java.io.File;
 import java.util.Scanner;
+import service.*;
+import util.*;
+import model.*;
 
 public class Main {
     static Library library = new Library();
+
+    private static String FILE_PATH = System.getProperty("user.dir")+"/src/main/java/data/";
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
@@ -77,7 +81,7 @@ public class Main {
         System.out.println("3 - Borrow Book");
         System.out.println("4 - Return Book");
         System.out.println("5 - Show All Books");
-        System.out.println("6 - Show All Member");
+        System.out.println("6 - Show All Members");
         System.out.println("7 - Save data to file");
         System.out.println("8 - Restore data from file");
         System.out.println("9 - Exit");
@@ -145,11 +149,12 @@ public class Main {
 
     public static void saveData(){
         System.out.println("Saving Data to file");
-        LibraryFileManager.saveData(library.books, library.members);
+        DataLoader.save(FILE_PATH ,DataFile.BOOK.getFilename(), library.books);
+        DataLoader.save(FILE_PATH, DataFile.MEMBER.getFilename(), library.members);
     }
     public static void restoreData(){
         System.out.println("Loading Data from file");
-        library.books = LibraryFileManager.loadBooks();
-        library.members = LibraryFileManager.loadMembers();
+        library.books = DataLoader.load(FILE_PATH, DataFile.BOOK.getFilename());
+        library.members = DataLoader.load(FILE_PATH, DataFile.MEMBER.getFilename());
     }
 }

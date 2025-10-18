@@ -1,2 +1,2 @@
-# Library-Management-System
-Console-based Library Management System in Java 
+# service.Library-Management-System
+Console-based service.Library Management System in Java 

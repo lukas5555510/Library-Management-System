@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,13 +9,13 @@ public class Member implements Serializable {
     private int id;
     private String name;
     ArrayList<Book> borrowedBooks;
-    Member(int id, String name, ArrayList<Book> borrowedBooks){
+    public Member(int id, String name, ArrayList<Book> borrowedBooks){
         this.id = id;
         this.name = name;
         this.borrowedBooks = borrowedBooks;
     }
 
-    Member(int id, String name){
+    public Member(int id, String name){
         this.id = id;
         this.name = name;
         this.borrowedBooks = new ArrayList<Book>();
@@ -53,7 +55,7 @@ public class Member implements Serializable {
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(id+"\n").append(name+"\n").append("books:\n");
+        stringBuilder.append("id: "+id+" name: ").append(name+"\n").append("books:\n");
         for(Book b: borrowedBooks){
             stringBuilder.append(b.toString()+"\n");
         }

@@ -1,28 +1,32 @@
-import jdk.nashorn.internal.runtime.ECMAException;
+package service;
+
+import model.Book;
+import model.Member;
+import util.BookError;
 
 import java.util.HashMap;
 
 public class Library {
-    HashMap<Integer, Book> books;
-    HashMap<Integer, Member> members;
+    public HashMap<Integer, Book> books;
+    public HashMap<Integer, Member> members;
 
-    Library(){
+    public Library(){
         this.books = new HashMap<Integer, Book>();
         this.members = new HashMap<Integer, Member>();
     }
-    Library(HashMap<Integer,Book> books, HashMap<Integer, Member> members){
+    public Library(HashMap<Integer, Book> books, HashMap<Integer, Member> members){
         this.books = books;
         this.members = members;
     }
 
     public void addBook(int id, Book book){
         books.put(id, book);
-        System.out.println("Book added");
+        System.out.println("model.Book added");
     }
 
     public void addMember(int id, Member member){
         members.put(id, member);
-        System.out.println("Member added");
+        System.out.println("model.Member added");
     }
 
     public void borrowBook(int memberId, int bookId){
@@ -38,6 +42,7 @@ public class Library {
         validateBookId(bookId);
         validateMemberId(memberId);
         validateIfBookCanBeReturned(bookId);
+        validateIfMemberHasBook(memberId,bookId);
         books.get(bookId).setAvailable(true);
         members.get(memberId).returnBook(books.get(bookId));
         System.out.println("Book returned");
@@ -70,6 +75,12 @@ public class Library {
     public void validateBookId(int memberId){
         if(!members.keySet().contains(memberId)){
             throw new BookError("Wrong member id");
+        }
+    }
+
+    public void validateIfMemberHasBook(int memberId, int bookId){
+        if(!members.get(memberId).getBorrowedBooks().contains(books.get(bookId))){
+            throw new BookError("Member doesn't have that book");
         }
     }
 
