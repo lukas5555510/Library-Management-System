@@ -8,7 +8,8 @@ public class Member implements Serializable {
 
     private int id;
     private String name;
-    ArrayList<Book> borrowedBooks;
+    private final ArrayList<Book> borrowedBooks;
+
     public Member(int id, String name, ArrayList<Book> borrowedBooks){
         this.id = id;
         this.name = name;
@@ -21,18 +22,18 @@ public class Member implements Serializable {
         this.borrowedBooks = new ArrayList<Book>();
     }
 
+    // --- Domain Behavior ---
     public void borrowBook(Book book){
         borrowedBooks.add(book);
     }
-
     public void returnBook(Book book){
         borrowedBooks.remove(book);
     }
 
+    // --- Getters and Setters ---
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -41,24 +42,25 @@ public class Member implements Serializable {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(ArrayList<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
-    }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
+
+    // --- Display ---
     @Override
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("id: "+id+" name: ").append(name+"\n").append("books:\n");
-        for(Book b: borrowedBooks){
-            stringBuilder.append(b.toString()+"\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Member {")
+                .append("id: ").append(id)
+                .append(", name: ").append(name)
+                .append(", books: [\n");
+        for(Book book: borrowedBooks){
+            sb.append(" ").append(book.toString()).append("\n");
         }
-        return stringBuilder.toString();
+        sb.append("]}");
+        return sb.toString();
     }
 }

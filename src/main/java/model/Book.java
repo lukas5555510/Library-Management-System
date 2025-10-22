@@ -8,18 +8,20 @@ public class Book implements Serializable {
     private int id;
     private String title;
     private String author;
-    private boolean isAvailable;
-    public Book(int id, String title, String author, boolean isAvailable){
+    private boolean available;
+
+    public Book(int id, String title, String author, boolean available){
         this.id = id;
         this.title = title;
         this.author = author;
-        this.isAvailable = isAvailable;
-    }
-    @Override
-    public String toString() {
-        return "id: "+id+" title: "+title+" author: "+author+" available: "+isAvailable;
+        this.available = available;
     }
 
+    // --- Domain Behavior ---
+    public void markAsBorrowed(){ this.available = false; }
+    public void markAsReturned(){ this.available = true; }
+
+    // --- Getters and Setters ---
     public int getId() {
         return id;
     }
@@ -37,16 +39,22 @@ public class Book implements Serializable {
     public String getAuthor() {
         return author;
     }
-
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setAvailable(boolean available) { this.available = available; }
+    public boolean isAvailable() { return this.available; }
+
+    // --- Display ---
+    @Override
+    public String toString() {
+        return "Book {"+
+                "id= "+id+
+                ", title= "+title+ '\''+
+                ", author= "+author+'\''+
+                ", available= "+ available+
+                '}';
     }
 
-    public boolean getIsAvailable() {
-        return isAvailable;
-    }
 }
