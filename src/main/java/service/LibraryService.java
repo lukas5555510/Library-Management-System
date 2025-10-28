@@ -24,7 +24,7 @@ public class LibraryService {
         Book book = bookRepo.get(bookId);
         Member member = memberRepo.get(memberId);
 
-        book.setAvailable(false);
+        book.markAsBorrowed();
         member.borrowBook(book);
     }
 
@@ -37,7 +37,7 @@ public class LibraryService {
         Book book = bookRepo.get(bookId);
         Member member = memberRepo.get(memberId);
 
-        book.setAvailable(true);
+        book.markAsReturned();
         member.returnBook(book);
     }
 }

@@ -24,8 +24,6 @@ public class LibraryController {
     private final MemberRepository memberRepo;
     private final DisplayService displayService;
 
-    private static String FILE_PATH = System.getProperty("user.dir")+"/src/main/java/data/";
-
     public LibraryController(LibraryService libraryService, BookRepository bookRepo, MemberRepository memberRepo, DisplayService displayService){
         this.libraryService = libraryService;
         this.bookRepo = bookRepo;
